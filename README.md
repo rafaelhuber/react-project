@@ -32,12 +32,12 @@ Treinar a estrutura de aplicações React, explorando os principais conceitos da
 
 ### 📋 Lista de Transações
 
-![Lista de Transações](./assets/screenshot-lista.png)
+![Lista de Transações](./src/assets/screenshot-lista.png)
 
 ### 📝 Formulário de Cadastro
 
-![Formulário de Cadastro](./assets/screenshot-formAdd.png)
+![Formulário de Cadastro](./src/assets/screenshot-formAdd.png)
 
 ### 📝 Formulário de Edição
 
-![Formulário de Cadastro](./assets/screenshot-formEdit.png)
+![Formulário de Cadastro](./src/assets/screenshot-formEdit.png)
