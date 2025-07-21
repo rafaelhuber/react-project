@@ -2,6 +2,10 @@
 
 Este é um projeto de **controle financeiro** desenvolvido em **React**, utilizando dados mockados (sem backend). Foi criado com o objetivo de praticar conceitos fundamentais da biblioteca e melhorar as habilidades de estilização com **Tailwind CSS**.
 
+## 💼 Deploy
+
+<a href="https://react-project-5o8y-git-main-rafaelhuber-8764s-projects.vercel.app/">https://react-project-5o8y-git-main-rafaelhuber-8764s-projects.vercel.app/</a>
+
 ## 🚀 Funcionalidades
 
 - **Adicionar transações**: Cadastro de transações com **título**, **descrição** e **valor**.
@@ -41,7 +45,3 @@ Treinar a estrutura de aplicações React, explorando os principais conceitos da
 ### 📝 Formulário de Edição
 
 <img src="./src/assets/screenshot-formEdit.png" alt="Formulário de Edição" width="480"/>
-
-## 💼 Deploy
-
-<a href="https://react-project-5o8y-git-main-rafaelhuber-8764s-projects.vercel.app/">https://react-project-5o8y-git-main-rafaelhuber-8764s-projects.vercel.app/</a>
