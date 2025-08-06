@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
+import DropdownCalendar from "./DropdownCalendar ";
 
 export default function Example(props) {
   const [open, setOpen] = useState(false);
@@ -10,6 +11,9 @@ export default function Example(props) {
   );
   const [expense, setExpense] = useState(props.item ? props.item.expense : "");
   const [colorText, setColorText] = useState("");
+  const [dataSelecionando, setDataSelecionando] = useState(
+    props.item ? props.item.dataSelecionando : new Date()
+  );
 
   useEffect(() => {
     setColorText(() => {
@@ -44,18 +48,23 @@ export default function Example(props) {
     // Verifica se o título e a descrição não estão vazios
     setOpen(false);
     if (id === null || id === "") {
-      if (!title.trim() || !description.trim() || !expense.trim()) {
+      if (!title.trim() || !expense.trim()) {
         return alert(
           "Por favor, preencha o título, descrição e o valor da transação."
         );
       }
-      props.onAddTransactionSubmit(title, description, expense);
+      props.onAddTransactionSubmit(
+        title,
+        description,
+        expense,
+        dataSelecionando
+      );
       setTitle("");
       setDescription("");
       setExpense("");
       return;
     } else {
-      props.onEditTaskClick(id, title, description, expense);
+      props.onEditTaskClick(id, title, description, expense, dataSelecionando);
       return;
     }
   }
@@ -67,6 +76,12 @@ export default function Example(props) {
       return "rounded-md bg-amber-600 px-2.5 py-1.5 text-sm font-semibold text-gray-200 hover:bg-amber-300 hover:text-gray-800";
     }
   }
+
+  useEffect(() => {
+    if (props.item?.date) {
+      setDataSelecionando(new Date(props.item.date));
+    }
+  }, [props.item]);
 
   return (
     <div>
@@ -124,6 +139,18 @@ export default function Example(props) {
                       onChange={handleChange}
                       className={`bg-green-50 block min-w-0 grow py-1.5 pr-3 pl-1 text-base placeholder:text-gray-400 focus:outline-none sm:text-sm/6 ${colorText}`}
                     />
+                  </div>
+
+                  <div>
+                    <div className="p-10">
+                      <h1 className="text-2xl mb-4">Selecionar Data</h1>
+
+                      <DropdownCalendar
+                        setDataSelecionando={setDataSelecionando}
+                        dataSelecionando={dataSelecionando}
+                        value={dataSelecionando}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

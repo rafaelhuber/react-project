@@ -1,8 +1,16 @@
-import { Pen, TrashIcon } from "lucide-react";
-
+import { Pen, TrashIcon, ArrowUpDown } from "lucide-react";
+import { useState, useEffect } from "react";
 import ModalAdd from "./ModalAdd";
+import SortList from "./SortList";
 
 function List(props) {
+  const [newTasks, setNewTasks] = useState([...props.items]);
+  const [sortValue, setSortValue] = useState(0);
+
+  useEffect(() => {
+    setNewTasks([...props.items]);
+  }, [props.items]);
+
   function colorText(expense) {
     if (expense < 0) {
       return "text-red-600 ";
@@ -26,18 +34,65 @@ function List(props) {
       <table className="table-fixed w-full text-left border-separate border border-gray-400">
         <thead className="bg-slate-300 text-slate-800">
           <tr>
-            <th className="px-2">Titulo</th>
-            <th className="text-right px-2">Despesa</th>
-            <th className="w-24 text-center">Ação</th>
+            <th className="px-2">
+              <div className="flex items-center">
+                <p className="max-sm:text-xs">Data</p>
+                <SortList
+                  value={sortValue}
+                  setSortValue={setSortValue}
+                  items={props.items}
+                  setNewTasks={setNewTasks}
+                  column={"title".toLowerCase()}
+                >
+                  <ArrowUpDown size={15} className="text-gray-600" />
+                </SortList>
+              </div>
+            </th>
+            <th className="px-2">
+              <div className="flex items-center ">
+                <p className="max-sm:text-xs">Titulo</p>
+                <SortList
+                  value={sortValue}
+                  setSortValue={setSortValue}
+                  items={props.items}
+                  setNewTasks={setNewTasks}
+                  column={"title".toLowerCase()}
+                >
+                  <ArrowUpDown size={15} className="text-gray-600" />
+                </SortList>
+              </div>
+            </th>
+
+            <th className=" px-2 ">
+              <div className="text-right flex items-center justify-end ">
+                <p className="max-sm:text-xs">Despesa</p>
+                <SortList
+                  value={sortValue}
+                  setSortValue={setSortValue}
+                  items={props.items}
+                  setNewTasks={setNewTasks}
+                  column={"expense"}
+                >
+                  <ArrowUpDown size={15} className="text-gray-600" />
+                </SortList>
+              </div>
+            </th>
+
+            <th className="w-24 text-center max-sm:text-xs">Ação</th>
           </tr>
         </thead>
         <tbody>
-          {props.items.map((item) => (
+          {newTasks.map((item) => (
             <tr
               key={item.id}
               className="hover:bg-slate-200 "
               title={`Descrição: ${item.description}`}
             >
+              <td className="text-slate-700 font-semibold border border-gray-300 px-2">
+                <p className={`text-xs ${colorText(item.expense)}`}>
+                  {new Date(item.dataSelecionando).toLocaleDateString()}
+                </p>
+              </td>
               <td className="text-slate-700 font-semibold border border-gray-300 px-2">
                 <p className={colorText(item.expense)}>{item.title}</p>
               </td>
@@ -59,7 +114,7 @@ function List(props) {
 
                 <button
                   onClick={() => props.onDeleteTaskClick(item.id)}
-                  className="text-red-500 p-2 hover:text-red-600  hover:bg-red-100 rounded-md"
+                  className="text-red-500 max-sm:p-2 hover:text-red-600  hover:bg-red-100 rounded-md"
                 >
                   <TrashIcon />
                 </button>
@@ -70,6 +125,7 @@ function List(props) {
         <thead className="bg-slate-300 text-slate-800">
           <tr>
             <th className="px-2">Total</th>
+            <th className="px-2"></th>
             <th className="text-right px-2">
               <p className={colorText(result())}>R$ {result()}</p>
             </th>
